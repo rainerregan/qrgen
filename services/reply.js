@@ -1,5 +1,5 @@
-import { EmbedBuilder, Message } from "discord.js";
-import { DEFAULT_PREFIX } from "../index.js";
+const { EmbedBuilder, Message } = require("discord.js");
+const { DEFAULT_PREFIX } = require("../index.js");
 
 /**
  * Reply to help command
@@ -22,7 +22,7 @@ export const replyHelp = function (message) {
             }
         );
 
-    message.channel.send({embeds: [embed]});
+    message.channel.send({ embeds: [embed] });
 }
 
 /**

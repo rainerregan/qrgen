@@ -1,8 +1,8 @@
-import { Attachment, AttachmentBuilder, Client, GatewayIntentBits, Message, MessagePayload } from 'discord.js';
-import dotenv from 'dotenv';
-import { isValidHttpUrl } from './services/link_check.js';
-import QRCode from 'qrcode';
-import { replyHelp } from './services/reply.js';
+const { Attachment, AttachmentBuilder, Client, GatewayIntentBits, Message, MessagePayload } = require('discord.js');
+const dotenv = require('dotenv');
+const { isValidHttpUrl } = require('./services/link_check.js');
+const QRCode = require('qrcode');
+const { replyHelp } = require('./services/reply.js');
 
 export const DEFAULT_PREFIX = "qr";
 
