@@ -2,8 +2,9 @@ import { Attachment, AttachmentBuilder, Client, GatewayIntentBits, Message, Mess
 import dotenv from 'dotenv';
 import { isValidHttpUrl } from './services/link_check.js';
 import QRCode from 'qrcode';
+import { replyHelp } from './services/reply.js';
 
-const DEFAULT_PREFIX = "qr";
+export const DEFAULT_PREFIX = "qr";
 
 // ENV Configuration
 dotenv.config();
@@ -32,33 +33,48 @@ client.on('messageCreate', message => {
 
 	switch (main_command) {
 		case "create":
-			switch(level_3){
+			switch (level_3) {
 				case "url":
 					const link = level_4;
 
-					if(isValidHttpUrl(link)){
-						QRCode.toDataURL(link, {width: 1000},  function(err, base64Code) {
-							if(err) return;
+					if (isValidHttpUrl(link)) {
+						QRCode.toDataURL(link, { width: 1000 }, function (err, base64Code) {
+							if (err) return;
 
 							const [url_type, base64] = base64Code.split(',');
 							const sfbuff = new Buffer.from(base64, "base64");
 							const file = new AttachmentBuilder(sfbuff);
 
-							message.reply({content: "Here is your QR code", files: [file]});
+							message.react('✔');
+							message.reply({ content: "Here is your QR code", files: [file] });
 
 						})
-						
+
 					} else {
 						message.reply('The link is in invalid form.');
 						message.react('❌');
 					}
-					
+
 					break;
-				
+
 				default:
-					message.reply(`The command is invalid. To creatr qr, type '${DEFAULT_PREFIX} create url [link]'`);
+					message.reply(
+						`The command is invalid. To create qr, type '${DEFAULT_PREFIX} create [TYPE=url,...] [link]'. 
+						For Example: qr create url https://merahputihdevelopment.com/`);
 					break;
 			}
+			break;
+
+		case "help":
+			replyHelp(message);
+			break;
+
+		case "about":
+			message.channel.send(`QRGen is a Discord bot for generating QR code from text sources, such as url, text and many more. QRGen is developed with passion by Rainer Regan.`)
+			break;
+
+		default:
+			message.reply(`The command is not recognized, please type '${DEFAULT_PREFIX} help'`)
 			break;
 	}
 })
