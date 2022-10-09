@@ -47,6 +47,8 @@ client.on('messageCreate', message => {
 							message.react('✔');
 							message.reply({ content: "Here is your QR code", files: [file] });
 
+							console.log(`Created QR for link ${link}`);
+
 						})
 
 					} else {
