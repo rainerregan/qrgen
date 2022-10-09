@@ -1,10 +1,9 @@
-const { Attachment, AttachmentBuilder, Client, GatewayIntentBits, Message, MessagePayload } = require('discord.js');
+const { AttachmentBuilder, Client, GatewayIntentBits } = require('discord.js');
 const dotenv = require('dotenv');
 const { isValidHttpUrl } = require('./services/link_check.js');
 const QRCode = require('qrcode');
 const { replyHelp } = require('./services/reply.js');
-
-export const DEFAULT_PREFIX = "qr";
+const { getDefaultPrefix } = require('./configs/prefix.js');
 
 // ENV Configuration
 dotenv.config();
@@ -29,7 +28,7 @@ client.on('messageCreate', message => {
 
 	const [prefix, main_command, level_3, level_4, ...props] = message.content.split(' ');
 
-	if (prefix !== DEFAULT_PREFIX) return;
+	if (prefix !== getDefaultPrefix()) return;
 
 	switch (main_command) {
 		case "create":
@@ -59,7 +58,7 @@ client.on('messageCreate', message => {
 
 				default:
 					message.reply(
-						`The command is invalid. To create qr, type '${DEFAULT_PREFIX} create [TYPE=url,...] [link]'. 
+						`The command is invalid. To create qr, type '${getDefaultPrefix()} create [TYPE=url,...] [link]'. 
 						For Example: qr create url https://merahputihdevelopment.com/`);
 					break;
 			}
@@ -74,7 +73,7 @@ client.on('messageCreate', message => {
 			break;
 
 		default:
-			message.reply(`The command is not recognized, please type '${DEFAULT_PREFIX} help'`)
+			message.reply(`The command is not recognized, please type '${getDefaultPrefix()} help'`)
 			break;
 	}
 })

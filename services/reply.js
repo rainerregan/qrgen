@@ -1,23 +1,23 @@
 const { EmbedBuilder, Message } = require("discord.js");
-const { DEFAULT_PREFIX } = require("../index.js");
+const { getDefaultPrefix } = require("../configs/prefix");
 
 /**
  * Reply to help command
  * @param {Message} message 
  */
-export const replyHelp = function (message) {
+const replyHelp = function (message) {
     const embed = new EmbedBuilder()
         .setTitle('QRGen')
         .setDescription('Discord bot for generating QR codes.')
         .addFields(
             {
                 name: "Prefix",
-                value: DEFAULT_PREFIX
+                value: `${getDefaultPrefix()}`
             },
             {
                 name: "Commands List:",
                 value: `
-                    \`${DEFAULT_PREFIX} create url YOUR_LINK'\` = Generating QR code from URL.
+                    \`${getDefaultPrefix()} create url YOUR_LINK'\` = Generating QR code from URL.
                 `
             }
         );
@@ -29,6 +29,10 @@ export const replyHelp = function (message) {
  * Reply to about command.
  * @param {Message} message 
  */
-export const replyAbout = function (message) {
+const replyAbout = function (message) {
 
+}
+
+module.exports = {
+    replyHelp: replyHelp
 }

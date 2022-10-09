@@ -4,14 +4,18 @@
  * @param {string} string String to be checked
  * @returns boolean
  */
-export const isValidHttpUrl = function(string) {
-    let url;
-    
-    try {
-      url = new URL(string);
-    } catch (_) {
-      return false;  
-    }
-  
-    return url.protocol === "http:" || url.protocol === "https:";
+const isValidHttpUrl = function (string) {
+  let url;
+
+  try {
+    url = new URL(string);
+  } catch (_) {
+    return false;
   }
+
+  return url.protocol === "http:" || url.protocol === "https:";
+}
+
+module.exports = {
+  isValidHttpUrl: isValidHttpUrl
+}
