@@ -51,7 +51,7 @@ client.on('messageCreate', message => {
 						})
 
 					} else {
-						message.reply('The link is in invalid form.');
+						message.reply('The link is in invalid form. For URL please use https:// or http://');
 						message.react('❌');
 					}
 
